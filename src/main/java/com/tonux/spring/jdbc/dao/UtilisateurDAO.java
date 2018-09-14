@@ -4,17 +4,17 @@ import java.util.List;
 
 import com.tonux.spring.jdbc.model.Utilisateur;
 
-//CRUD operations
+
 public interface UtilisateurDAO {
 	
-	//Create
+	//Creation
 	public void save(Utilisateur utilisateur);
-	//Read
+	//recuoeration
 	public Utilisateur getById(int id);
-	//Update
+	//mise a jour
 	public void update(Utilisateur utilisateur);
-	//Delete
+	//supression
 	public void deleteById(int id);
-	//Get All
+	//tout recuperer
 	public List<Utilisateur> getAll();
 }

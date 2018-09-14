@@ -11,37 +11,40 @@ import com.tonux.spring.jdbc.dao.UtilisateurDAO;
 public class SpringMain {
 
 	public static void main(String[] args) {
+
 		//Get the Spring Context
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
 		
+
 		//Get the UtilisateurDAO Bean
 		//UtilisateurDAO utilisateurDAO = ctx.getBean("utilisateurDAO", UtilisateurDAO.class);
-		//To use JdbcTemplate
+
+		//To use JdbcTemplate spring
 		UtilisateurDAO utilisateurDAO = ctx.getBean("utilisateurDAOJDBCTemplate", UtilisateurDAO.class);
-		
-		//Run some tests for JDBC CRUD operations
+
+
 		Utilisateur user = new Utilisateur();
 		int rand = new Random().nextInt(1000);
         user.setId(rand);
         user.setName("Matthieu");
         user.setRole("Java Developer");
 		
-		//Create
+		//Creer utilisateur
 		utilisateurDAO.save(user);
 		
-		//Read
+		//Recuperer utilisateur
 		Utilisateur user1 = utilisateurDAO.getById(rand);
-		System.out.println("Utilisateur Retrieved::"+user1);
+		System.out.println("Utilisateur trouvé::"+user1);
 		
-		//Update
+		//Update utilisateur
 		user.setRole("CEO");
 		utilisateurDAO.update(user);
 		
-		//Get All
+		//Get All Utilisateurs
 		List<Utilisateur> empList = utilisateurDAO.getAll();
 		System.out.println(empList);
 		
-		//Delete
+		//Supprimer utilisateur
 		utilisateurDAO.deleteById(rand);
 		
 		//Close Spring Context

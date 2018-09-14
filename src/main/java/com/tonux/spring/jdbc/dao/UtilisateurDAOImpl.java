@@ -32,8 +32,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			ps.setString(3, utilisateur.getRole());
 			int out = ps.executeUpdate();
 			if(out !=0){
-				System.out.println("Utilisateur saved with id="+ utilisateur.getId());
-			}else System.out.println("Utilisateur save failed with id="+ utilisateur.getId());
+				System.out.println("Utilisateur créé avec id="+ utilisateur.getId());
+			}else System.out.println("Utilisateur création echoué avec id="+ utilisateur.getId());
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
@@ -62,9 +62,9 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 				user.setId(id);
 				user.setName(rs.getString("name"));
 				user.setRole(rs.getString("role"));
-				System.out.println("Utilisateur Found::"+user);
+				System.out.println("Utilisateur trouvé::"+user);
 			}else{
-				System.out.println("No Utilisateur found with id="+id);
+				System.out.println("Pas Utilisateur trouver id="+id);
 			}
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -92,8 +92,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			ps.setInt(3, utilisateur.getId());
 			int out = ps.executeUpdate();
 			if(out !=0){
-				System.out.println("Utilisateur updated with id="+ utilisateur.getId());
-			}else System.out.println("No Utilisateur found with id="+ utilisateur.getId());
+				System.out.println("Utilisateur mise a jour id="+ utilisateur.getId());
+			}else System.out.println("Pas Utilisateur trouver id="+ utilisateur.getId());
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
@@ -117,8 +117,8 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 			ps.setInt(1, id);
 			int out = ps.executeUpdate();
 			if(out !=0){
-				System.out.println("Utilisateur deleted with id="+id);
-			}else System.out.println("No Utilisateur found with id="+id);
+				System.out.println("Utilisateur supprimé  id="+id);
+			}else System.out.println("Pas Utilisateur trouvé  id="+id);
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{

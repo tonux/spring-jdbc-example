@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import com.tonux.spring.jdbc.model.Utilisateur;
+import com.tonux.spring.jdbc.rowmappers.UtilisateurRow;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -30,25 +31,18 @@ public class UtilisateurSpringDAOImpl implements UtilisateurDAO {
 		int out = jdbcTemplate.update(query, args);
 		
 		if(out !=0){
-			System.out.println("Utilisateur saved with id="+ utilisateur.getId());
-		}else System.out.println("Utilisateur save failed with id="+ utilisateur.getId());
+			System.out.println("Utilisateur créé id="+ utilisateur.getId());
+		}else System.out.println("Utilisateur création échouée  id="+ utilisateur.getId());
 	}
 
 	public Utilisateur getById(int id) {
 		String query = "select id, name, role from Utilisateurs where id = ?";
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		
-		//using RowMapper anonymous class, we can create a separate RowMapper for reuse
-		Utilisateur user = jdbcTemplate.queryForObject(query, new Object[]{id}, new RowMapper<Utilisateur>(){
+		//using RowMapper
+		RowMapper<Utilisateur> userRowMapper = new UtilisateurRow();
 
-			public Utilisateur mapRow(ResultSet rs, int rowNum)
-					throws SQLException {
-				Utilisateur user = new Utilisateur();
-                user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
-                user.setRole(rs.getString("role"));
-				return user;
-			}});
+		Utilisateur user = jdbcTemplate.queryForObject(query, new Object[]{id}, userRowMapper);
 		
 		return user;
 	}
@@ -60,8 +54,8 @@ public class UtilisateurSpringDAOImpl implements UtilisateurDAO {
 		
 		int out = jdbcTemplate.update(query, args);
 		if(out !=0){
-			System.out.println("Utilisateur updated with id="+ utilisateur.getId());
-		}else System.out.println("No Utilisateur found with id="+ utilisateur.getId());
+			System.out.println("Utilisateur mise a jour id="+ utilisateur.getId());
+		}else System.out.println("Pas Utilisateur trouvé  id="+ utilisateur.getId());
 	}
 
 	public void deleteById(int id) {
@@ -71,8 +65,8 @@ public class UtilisateurSpringDAOImpl implements UtilisateurDAO {
 		
 		int out = jdbcTemplate.update(query, id);
 		if(out !=0){
-			System.out.println("Utilisateur deleted with id="+id);
-		}else System.out.println("No Utilisateur found with id="+id);
+			System.out.println("Utilisateur supprimé  id="+id);
+		}else System.out.println("Pas Utilisateur trouvé  id="+id);
 	}
 
 	public List<Utilisateur> getAll() {
